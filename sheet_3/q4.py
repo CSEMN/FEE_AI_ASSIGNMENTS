@@ -13,14 +13,13 @@ claus.append(expr("healthy(jia)"))
 # (5) john is wealthy.
 claus.append(expr("wealthy(jhon)"))
 # (6) anyone is a traveler if he is healthy and wealthy.
-claus.append(expr("( healthy(x) & wealthy(x) ) ==> traveler(x) "))
+claus.append(expr("healthy(x) & wealthy(x) ==> traveler(x)"))
 # (7) anyone can travel if he is a traveler
-claus.append(expr("traveler(y) ==> can_travel(y)"))
+claus.append(expr("traveler(y) ==> canTravel(y)"))
 
 #create Knowledge base (KB) from previous clauses.
 KB=logic.FolKB(claus)
-
-answer1=logic.fol_fc_ask(KB,expr("can_travel(y)"))
+answer1=logic.fol_fc_ask(KB,expr("canTravel(y)"))
 answer2=logic.fol_fc_ask(KB,expr("healthy(x) & wealthy(x)"))
 
 print("who can travel ? : ",list(answer1))
