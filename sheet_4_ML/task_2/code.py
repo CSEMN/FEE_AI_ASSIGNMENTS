@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-from sklearn.compose import ColumnTransformer
+from kneed import KneeLocator
 
 # Importing the dataset
 dataset = pd.read_csv('Wuzzuf_Jobs.csv')
@@ -20,16 +19,24 @@ X = pd.get_dummies(X,columns=[0,1])
 
 #pick best number of clusters
 wcss = []
-for i in range(1, 11):
+for i in range(1, 21):
     kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)
     kmeans.fit(X)
     wcss.append(kmeans.inertia_)
-plt.plot(range(1, 11), wcss)
+
+#graph method    
+plt.plot(range(1, 21), wcss)
 plt.title('The Elbow Method')
 plt.xlabel('Number of clusters')
 plt.ylabel('WCSS')
 plt.show()
-# from graph best number of clusters = 2
+
+#mathmatical method    
+k1 = KneeLocator(range(1, 21), wcss, curve="convex", direction="decreasing")
+print("elbow at : ",end="")
+print(k1.elbow)
+
+# from graph & mathmatical methods best number of clusters = 2
 #perform k-means algo
 kmeans = KMeans(n_clusters = 2, init = 'k-means++', random_state = 42)
 y_kmeans = kmeans.fit_predict(X)
