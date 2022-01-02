@@ -40,4 +40,3 @@ print(k1.elbow)
 #perform k-means algo
 kmeans = KMeans(n_clusters = 2, init = 'k-means++', random_state = 42)
 y_kmeans = kmeans.fit_predict(X)
-y_kmeans == 0
